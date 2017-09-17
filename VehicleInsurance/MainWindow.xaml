@@ -191,10 +191,10 @@
                                     Mode=OneWay,
                                     UpdateSourceTrigger=PropertyChanged}"
                            HorizontalAlignment="Left"
-                           Margin="477,36,0,0"
+                           Margin="325,36,0,0"
                            TextWrapping="Wrap"
                            VerticalAlignment="Top"
-                           Width="345"
+                           Width="497"
                            Height="37"
                            FontSize="20" />
                 <TextBlock x:Name="textBlock1"

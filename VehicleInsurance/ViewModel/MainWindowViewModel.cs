@@ -33,7 +33,7 @@ namespace VehicleInsurance.ViewModel
         public DelegateCommand AddClaimCommand { get; internal set; }
         public DelegateCommand CalculatePremiumCommand { get; internal set; }
 
-      
+
         /// <summary>
         /// Binds to Occupation ComboBox.
         /// </summary>
@@ -87,7 +87,7 @@ namespace VehicleInsurance.ViewModel
             get { return _selectedDriver; }
             set
             {
-                _selectedDriver = value; 
+                _selectedDriver = value;
                 OnPropertyChanged();
             }
         }
@@ -130,7 +130,7 @@ namespace VehicleInsurance.ViewModel
             get { return _status; }
             set
             {
-                _status = value; 
+                _status = value;
                 OnPropertyChanged();
             }
         }
@@ -177,7 +177,7 @@ namespace VehicleInsurance.ViewModel
                 PolicyStartDate = DateTime.Today,
                 Premium = 0.0
             };
-           
+
             OccupationList = new List<string>()
             {
                 "Other",
@@ -191,7 +191,7 @@ namespace VehicleInsurance.ViewModel
             DateOfClaim = DateTime.Now;
         }
 
-     
+
 
         /// <summary>
         /// Add claim to a selected driver. Checks a driver has less than five claims.
@@ -224,7 +224,8 @@ namespace VehicleInsurance.ViewModel
             }
             catch (Exception e)
             {
-                Status = Status = "An error has occurred. Please ensure the correct information has been entered on the system.\n" + e.Message;
+                Status = "An error has occurred. Please ensure the correct information has been entered on the system.\n" + e.Message;
+                Logger.Error("Error: " + e);
             }
         }
 
@@ -242,7 +243,7 @@ namespace VehicleInsurance.ViewModel
                 {
                     if (Drivers.Count < 5)
                     {
-                       
+
                         Driver driver = new Driver();
                         driver.Name = DriverName;
                         driver.DateOfBirth = DriverDateOfBirth;
@@ -262,7 +263,7 @@ namespace VehicleInsurance.ViewModel
                             jobEnum = OccupationEnum.Other;
                         }
 
-                        
+
                         Occupation job = new Occupation()
                         {
                             JobTitle = jobEnum
@@ -276,18 +277,20 @@ namespace VehicleInsurance.ViewModel
                     else
                     {
                         Status = "Policy cannot contain more than five drivers";
+                        Logger.Info("Info: User attempted to have more than five drivers on policy.");
                     }
                 }
                 else
                 {
-                   Status = "Please enter name and occupation of driver." ;
+                    Status = "Please enter name and occupation of driver.";
                 }
 
             }
             catch (Exception e)
             {
 
-                Status = "An error has occurred. Please ensure the correct information has been entered on the system.\n" + e.Message;
+                Status = "Please check and ammend incorrect entries.";
+                Logger.Error("Error: " + e);
             }
         }
 
@@ -297,23 +300,35 @@ namespace VehicleInsurance.ViewModel
         /// </summary>
         public void CalculatePremium()
         {
-            IDeclineFactory declineFactory = new DeclineRulesFactory();
-            DeclineRules declineRules = declineFactory.CreateDeclineRules();
-            Result result = declineRules.ImplementRules(_policy);
+            try
+            {
+                //if (!string.IsNullOrWhiteSpace(DriverName))
+                //{
+                    IDeclineFactory declineFactory = new DeclineRulesFactory();
+                    DeclineRules declineRules = declineFactory.CreateDeclineRules();
+                    Result result = declineRules.ImplementRules(_policy);
 
-            if (result.IsSuccessful)
-            {
-                ICalculateFactory calculateFactory = new CalculateRulesFactory();
-                CalculateRules calculateRules = calculateFactory.CreateCalculationRules();
-    
-             
-                FinalPremium = calculateRules.ImplementRules(_policy);
-                Status = "Premium updated successfully.";
+                    if (result.IsSuccessful)
+                    {
+                        ICalculateFactory calculateFactory = new CalculateRulesFactory();
+                        CalculateRules calculateRules = calculateFactory.CreateCalculationRules();
+
+
+                        FinalPremium = calculateRules.ImplementRules(_policy);
+                        Status = "Premium updated successfully.";
+                    }
+                    else
+                    {
+                        Status = result.Message;
+                    }
+                //}
             }
-            else
+            catch (Exception e)
             {
-                Status = result.Message;
+
+                Status = "Please ensure all fields are completed.";
+                Logger.Error("Error: " + e.Message);
             }
-        }
+         }
     }
 }
