@@ -1,24 +1,20 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using VehicleInsurance.BusinessRules.CalculationRules;
+﻿using VehicleInsurance.BusinessRules.CalculationRules;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 using VehicleInsurance.Enum;
 using VehicleInsurance.Model;
+using NUnit.Framework;
 
 namespace VehicleInsuranceTests.BusinessRules.CalculationRules
 {
-    [TestClass()]
+    [TestFixture]
     public class CalcualtionTests
     {
         private Policy _policy;
         private Driver _driver;
+        private BasePremiumRule _basePremiumRule;
 
-        [TestInitialize]
+        [SetUp]
         public void Initialise()
         {
             _policy = new Policy()
@@ -33,70 +29,50 @@ namespace VehicleInsuranceTests.BusinessRules.CalculationRules
                 DateOfBirth = new DateTime(),
                 Occupation = new Occupation()
             };
+
+            _basePremiumRule = new BasePremiumRule();
         }
 
-
-
-        [TestMethod()]
-        public void ImplementRuleTestBasePremiumIs500()
+        [TestCase (500)]
+        public void ImplementRuleTestBasePremiumIs500(double input)
         {
             //Assemble
-            Policy policy = _policy;
             double premium = 0;
-            BasePremiumRule rule = new BasePremiumRule();
+            var rule = _basePremiumRule;
+            double expectedResult = input;
 
             //Act
-            double expectedResult = 500.00;
-            double actualResult = rule.ImplementRule(policy, premium);
+            double actualResult = rule.ImplementRule(_policy, premium);
 
             //Assert
-            Assert.AreEqual(expectedResult, actualResult);
-        }
-
-        /// <summary>
-        /// Boundary test under 500.00
-        /// </summary>
-        [TestMethod()]
-        public void ImplementRuleTestBasePremiumIsLessThan500()
-        {
-            //Assemble
-
-            Policy policy = _policy;
-            double premium = 0;
-            BasePremiumRule rule = new BasePremiumRule();
-
-            //Act
-            double expectedResult = 499.00;
-            double actualResult = rule.ImplementRule(policy, premium);
-
-            //Assert
-            Assert.AreNotEqual(expectedResult, actualResult);
+            Assert.That(actualResult, Is.EqualTo(expectedResult));
         }
 
         /// <summary>
-        /// Boundary test above 500.00
+        /// Boundary tests at 500.00
         /// </summary>
-        [TestMethod()]
-        public void ImplementRuleTestBasePremiumIsMoreThan500()
+        [TestCase (499)]
+        [TestCase(499.5)]
+        [TestCase(500.5)]
+        [TestCase (501)]
+        public void ImplementRuleTestBasePremiumIsLessThan500(double input)
         {
             //Assemble
-
-            Policy policy = _policy;
             double premium = 0;
-            BasePremiumRule rule = new BasePremiumRule();
+            var rule = _basePremiumRule;
+            double expectedResult = input;
 
             //Act
-            double expectedResult = 500.01;
-            double actualResult = rule.ImplementRule(policy, premium);
+            double actualResult = rule.ImplementRule(_policy, premium);
 
             //Assert
-            Assert.AreNotEqual(expectedResult, actualResult);
+            Assert.That(actualResult, !Is.EqualTo(expectedResult));
         }
 
         /// <summary>
         /// Other occupation test
         /// </summary>
-        [TestMethod]
+        [Test]
         public void ImplementRuleTestOccupationOther()
         {
             //Assemble
@@ -118,7 +94,7 @@ namespace VehicleInsuranceTests.BusinessRules.CalculationRules
         /// <summary>
         /// Test for chauffeur.  Increase by 10%
         /// </summary>
-        [TestMethod]
+        [Test]
         public void ImplementRuleTestOccupationChauffeur()
         {
             //Assemble
@@ -141,7 +117,7 @@ namespace VehicleInsuranceTests.BusinessRules.CalculationRules
         /// <summary>
         /// Test for Accountant.  Decrease by 10%
         /// </summary>
-        [TestMethod]
+        [Test]
         public void ImplementRuleTestOccupationAccountant()
         {
             //Assemble
@@ -160,7 +136,7 @@ namespace VehicleInsuranceTests.BusinessRules.CalculationRules
             Assert.AreEqual(expectedResult, actualResult);
         }
 
-        [TestMethod]
+        [Test]
         public void ImplementRuleYoungestDriver21()
         {
             //Assemble
@@ -183,7 +159,7 @@ namespace VehicleInsuranceTests.BusinessRules.CalculationRules
             Assert.AreEqual(expectedResult, actualResult);
         }
 
-        [TestMethod]
+        [Test]
         public void ImplementRuleYoungestDriver25()
         {
             //Assemble
@@ -207,7 +183,7 @@ namespace VehicleInsuranceTests.BusinessRules.CalculationRules
 
         }
 
-        [TestMethod]
+        [Test]
         public void ImplementRuleYoungestDriver26()
         {
             //Assemble
@@ -230,7 +206,7 @@ namespace VehicleInsuranceTests.BusinessRules.CalculationRules
             Assert.AreEqual(expectedResult, actualResult);
         }
 
-        [TestMethod]
+        [Test]
         public void ImplementRuleYoungestDriver75()
         {
             //Assemble
@@ -253,7 +229,7 @@ namespace VehicleInsuranceTests.BusinessRules.CalculationRules
             Assert.AreEqual(expectedResult, actualResult);
         }
 
-        [TestMethod]
+        [Test]
         public void ImplementRuleClaimsWithinYear()
         {
             //Assemble
@@ -277,7 +253,7 @@ namespace VehicleInsuranceTests.BusinessRules.CalculationRules
 
         }
 
-        [TestMethod]
+        [Test]
         public void ImplementRuleClaimsWithinTwoYears()
         {
             //Assemble
@@ -301,7 +277,7 @@ namespace VehicleInsuranceTests.BusinessRules.CalculationRules
 
         }
 
-        [TestMethod]
+        [Test]
         public void ImplementRuleClaimsWithinFiveYears()
         {
             //Assemble

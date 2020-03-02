@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using VehicleInsurance.BusinessRules.DeclinedRules;
 using VehicleInsurance.Model;
 
 namespace VehicleInsuranceTests.BusinessRules.DeclineRules
 {
-    [TestClass()]
+    [TestFixture]
     public class DeclineTests
     {
         private Policy _policy;
@@ -18,7 +14,7 @@ namespace VehicleInsuranceTests.BusinessRules.DeclineRules
         private Claim _claim;
 
 
-        [TestInitialize]
+        [SetUp]
         public void Initialise()
         {
             _policy = new Policy()
@@ -40,7 +36,7 @@ namespace VehicleInsuranceTests.BusinessRules.DeclineRules
             };
         }
 
-        [TestMethod]
+        [Test]
         //check to test date before today fails
         public void ImplementRuleTestBadStartDatePast()
         {
@@ -57,7 +53,7 @@ namespace VehicleInsuranceTests.BusinessRules.DeclineRules
             Assert.AreEqual(expectedResult, actualResult);
         }
 
-        [TestMethod]
+        [Test]
         //check to test todays date passes
         public void ImplementRuleTestBadStartDateNow()
         {
@@ -74,7 +70,7 @@ namespace VehicleInsuranceTests.BusinessRules.DeclineRules
             Assert.AreEqual(expectedResult, actualResult);
         }
 
-        [TestMethod]
+        [Test]
         //test if driver is 21 or over
         public void ImplementRuleTestYoungestDriverIs21()
         {
@@ -96,7 +92,7 @@ namespace VehicleInsuranceTests.BusinessRules.DeclineRules
             Assert.AreEqual(expectedResult, actualResult);
         }
 
-        [TestMethod]
+        [Test]
         public void ImplementRuleTestYoungestDriverIsUnder21()
         {
             //Assemble
@@ -117,7 +113,7 @@ namespace VehicleInsuranceTests.BusinessRules.DeclineRules
             Assert.AreEqual(expectedResult, actualResult);
         }
 
-        [TestMethod]
+        [Test]
         public void ImplementRuleTestOldestDriverIs75()
         {
             //Assemble
@@ -138,7 +134,7 @@ namespace VehicleInsuranceTests.BusinessRules.DeclineRules
             Assert.AreEqual(actualResult, expectedResult);
         }
 
-        [TestMethod]
+        [Test]
         //One year boundary check
         public void ImplementRuleTestOldestDriverIsOver75()
         {
@@ -160,7 +156,7 @@ namespace VehicleInsuranceTests.BusinessRules.DeclineRules
             Assert.AreEqual(actualResult, expectedResult);
         }
 
-        [TestMethod]
+        [Test]
         public void ImplementRuleTestExceedTwoClaimsPerDriver()
         {
             //Assemble
@@ -188,7 +184,7 @@ namespace VehicleInsuranceTests.BusinessRules.DeclineRules
             Assert.AreEqual(expectedResult, actualResult);
         }
 
-        [TestMethod]
+        [Test]
         public void ImplementTestRuleTotalClaimsIsThree()
         {
             //Assemble
@@ -235,7 +231,7 @@ namespace VehicleInsuranceTests.BusinessRules.DeclineRules
             Assert.AreEqual(expectedResult, actualResult);
         }
 
-        [TestMethod]
+        [Test]
         //Same as above but add an additional claim to driverA
         public void ImplementTestRuleTotalClaimsExceedsThree()
         {
