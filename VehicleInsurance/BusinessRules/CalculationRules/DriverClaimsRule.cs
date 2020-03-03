@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VehicleInsurance.Interfaces;
+﻿using VehicleInsurance.Interfaces;
 using VehicleInsurance.Model;
 using VehicleInsurance.Service;
 
 namespace VehicleInsurance.BusinessRules.CalculationRules
 {
-   public class DriverClaimsRule : ICalculate
+    public class DriverClaimsRule : ICalculate
     {
         /// <summary>
         ///For each claim within 1 year of the start date of the policy increase the premium by 20%.

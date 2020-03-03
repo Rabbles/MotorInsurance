@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VehicleInsurance.Interfaces;
+﻿using VehicleInsurance.Interfaces;
 using VehicleInsurance.Model;
 using VehicleInsurance.Service;
 
 namespace VehicleInsurance.BusinessRules.DeclinedRules
 {
-   public class YoungestDriverUnder21Rule : IDecline
+    public class YoungestDriverUnder21Rule : IDecline
     {
         /// <summary>
         /// If the youngest driver is under the age of 21 at the start date of the policy decline with a message 

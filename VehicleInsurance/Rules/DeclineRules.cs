@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using VehicleInsurance.Interfaces;
 using VehicleInsurance.Model;
 
 namespace VehicleInsurance.Rules
 {
-   public class DeclineRules
+    public class DeclineRules
    {
        private List<IDecline> Rules;
 

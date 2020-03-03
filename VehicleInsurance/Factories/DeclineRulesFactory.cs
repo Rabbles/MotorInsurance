@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using VehicleInsurance.BusinessRules.DeclinedRules;
 using VehicleInsurance.Interfaces;
 using VehicleInsurance.Rules;
 
 namespace VehicleInsurance.Factories
 {
-   public class DeclineRulesFactory : IDeclineFactory
+    public class DeclineRulesFactory : IDeclineFactory
     {
         /// <summary>
         /// Factory method which returns

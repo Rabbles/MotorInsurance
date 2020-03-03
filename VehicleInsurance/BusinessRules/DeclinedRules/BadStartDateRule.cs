@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VehicleInsurance.Interfaces;
 using VehicleInsurance.Model;
 
 namespace VehicleInsurance.BusinessRules.DeclinedRules
 {
-   public class BadStartDateRule : IDecline
+    public class BadStartDateRule : IDecline
     {
         /// <summary>
         /// If the start date of the policy is before today decline with the message "Start Date of Policy".

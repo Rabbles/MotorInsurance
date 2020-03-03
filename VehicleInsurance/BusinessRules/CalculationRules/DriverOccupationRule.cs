@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using VehicleInsurance.Enum;
 using VehicleInsurance.Interfaces;
 using VehicleInsurance.Model;
 
 namespace VehicleInsurance.BusinessRules.CalculationRules
 {
-  public class DriverOccupationRule : ICalculate
+    public class DriverOccupationRule : ICalculate
     {
         /// <summary>
         ///If there is driver who is a Chauffeur on the policy increase the premium by 10%.

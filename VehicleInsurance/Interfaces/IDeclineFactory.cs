@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VehicleInsurance.Rules;
+﻿using VehicleInsurance.Rules;
 
 namespace VehicleInsurance.Interfaces
 {
-   public interface IDeclineFactory
+    public interface IDeclineFactory
    {
        DeclineRules CreateDeclineRules();
    }

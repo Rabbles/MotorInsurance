@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VehicleInsurance.BusinessRules.CalculationRules;
 using VehicleInsurance.Interfaces;
 using VehicleInsurance.Model;
-using VehicleInsurance.Service;
 
 namespace VehicleInsurance.BusinessRules.DeclinedRules
 {
-    
+
     public class DriverHasMoreThanTwoClaimsRule : IDecline
     {
         /// <summary>
