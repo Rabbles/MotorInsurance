@@ -11,9 +11,9 @@ namespace VehicleInsurance.BusinessRules.CalculationRules
         /// <param name="policy"></param>
         /// <param name="premium"></param>
         /// <returns></returns>
-        public double ImplementRule(Policy policy, double premium)
+        public decimal ImplementRule(Policy policy, decimal premium)
         {
-            return 500.00;
+            return 500.00M;
         }
     }
 }

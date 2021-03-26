@@ -5,7 +5,7 @@ namespace VehicleInsurance.Model
 {
     public class Policy
     {
-        public double Premium { get; set; }
+        public decimal Premium { get; set; }
 
         public ObservableCollection<Driver> DriversOnPolicy { get; set; }
 

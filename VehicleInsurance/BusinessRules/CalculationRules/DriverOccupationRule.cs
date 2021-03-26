@@ -14,19 +14,19 @@ namespace VehicleInsurance.BusinessRules.CalculationRules
         /// <param name="policy"></param>
         /// <param name="premium"></param>
         /// <returns></returns>
-        public double ImplementRule(Policy policy, double premium)
+        public decimal ImplementRule(Policy policy, decimal premium)
         {
             
             if (policy.DriversOnPolicy.Any(d => d.Occupation.JobTitle.Equals(OccupationEnum.Accountant)))
             {
 
-                premium = premium - premium * 0.1;
+                premium -= premium * 0.1m;
             }
 
             
             else if (policy.DriversOnPolicy.Any(d => d.Occupation.JobTitle.Equals(OccupationEnum.Chauffeur)))
             {
-                premium = premium + premium * 0.1;
+                premium += premium * 0.1m;
             }
 
             

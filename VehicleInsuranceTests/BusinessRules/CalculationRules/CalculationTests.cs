@@ -34,15 +34,15 @@ namespace VehicleInsuranceTests.BusinessRules.CalculationRules
         }
 
         [TestCase (500)]
-        public void ImplementRuleTestBasePremiumIs500(double input)
+        public void ImplementRuleTestBasePremiumIs500(decimal input)
         {
             //Assemble
-            double premium = 0;
+            decimal premium = 0;
             var rule = _basePremiumRule;
-            double expectedResult = input;
+            decimal expectedResult = input;
 
             //Act
-            double actualResult = rule.ImplementRule(_policy, premium);
+            decimal actualResult = rule.ImplementRule(_policy, premium);
 
             //Assert
             Assert.That(actualResult, Is.EqualTo(expectedResult));
@@ -55,15 +55,15 @@ namespace VehicleInsuranceTests.BusinessRules.CalculationRules
         [TestCase(499.5)]
         [TestCase(500.5)]
         [TestCase (501)]
-        public void ImplementRuleTestBasePremiumIsLessThan500(double input)
+        public void ImplementRuleTestBasePremiumIsLessThan500(decimal input)
         {
             //Assemble
-            double premium = 0;
+            decimal premium = 0;
             var rule = _basePremiumRule;
-            double expectedResult = input;
+            decimal expectedResult = input;
 
             //Act
-            double actualResult = rule.ImplementRule(_policy, premium);
+            decimal actualResult = rule.ImplementRule(_policy, premium);
 
             //Assert
             Assert.That(actualResult, !Is.EqualTo(expectedResult));
@@ -80,12 +80,12 @@ namespace VehicleInsuranceTests.BusinessRules.CalculationRules
             Driver driver = _driver;
             driver.Occupation.JobTitle = OccupationEnum.Other;
             policy.DriversOnPolicy.Add(driver);
-            double premium = 500;
+            decimal premium = 500;
             DriverOccupationRule driverOccupationRule = new DriverOccupationRule();
 
             //Act
-            double expectedResult = premium;
-            double actualResult = driverOccupationRule.ImplementRule(policy, premium);
+            decimal expectedResult = premium;
+            decimal actualResult = driverOccupationRule.ImplementRule(policy, premium);
 
             //Assert
             Assert.AreEqual(expectedResult, actualResult);
@@ -102,12 +102,12 @@ namespace VehicleInsuranceTests.BusinessRules.CalculationRules
             Driver driver = _driver;
             driver.Occupation.JobTitle = OccupationEnum.Chauffeur;
             policy.DriversOnPolicy.Add(driver);
-            double premium = 500;
+            decimal premium = 500;
             DriverOccupationRule driverOccupationRule = new DriverOccupationRule();
 
             //Act
-            double expectedResult = premium + premium * 0.1;
-            double actualResult = driverOccupationRule.ImplementRule(policy, premium);
+            decimal expectedResult = premium + premium * 0.1m;
+            decimal actualResult = driverOccupationRule.ImplementRule(policy, premium);
 
             //Assert
             Assert.AreEqual(expectedResult, actualResult);
@@ -125,12 +125,12 @@ namespace VehicleInsuranceTests.BusinessRules.CalculationRules
             Driver driver = _driver;
             driver.Occupation.JobTitle = OccupationEnum.Accountant;
             policy.DriversOnPolicy.Add(driver);
-            double premium = 500;
+            decimal premium = 500;
             DriverOccupationRule driverOccupationRule = new DriverOccupationRule();
 
             //Act
-            double expectedResult = premium - premium * 0.1;
-            double actualResult = driverOccupationRule.ImplementRule(policy, premium);
+            decimal expectedResult = premium - premium * 0.1m;
+            decimal actualResult = driverOccupationRule.ImplementRule(policy, premium);
 
             //Assert
             Assert.AreEqual(expectedResult, actualResult);
@@ -147,13 +147,13 @@ namespace VehicleInsuranceTests.BusinessRules.CalculationRules
             policy.PolicyStartDate = startDate;
             policy.DriversOnPolicy.Add(driver);
             driver.DateOfBirth = driverDateOfBirth;
-            double premium = 500;
+            decimal premium = 500;
             YoungestDriverRule youngestDriverRule = new YoungestDriverRule();
 
             //Act
 
-            double expectedResult = premium + premium * 0.2;
-            double actualResult = youngestDriverRule.ImplementRule(policy, premium);
+            decimal expectedResult = premium + premium * 0.2m;
+            decimal actualResult = youngestDriverRule.ImplementRule(policy, premium);
 
             //Assert
             Assert.AreEqual(expectedResult, actualResult);
@@ -170,13 +170,13 @@ namespace VehicleInsuranceTests.BusinessRules.CalculationRules
             policy.PolicyStartDate = startDate;
             policy.DriversOnPolicy.Add(driver);
             driver.DateOfBirth = driverDateOfBirth;
-            double premium = 500;
+            decimal premium = 500;
             YoungestDriverRule youngestDriverRule = new YoungestDriverRule();
 
             //Act
 
-            double expectedResult = premium + premium * 0.2;
-            double actualResult = youngestDriverRule.ImplementRule(policy, premium);
+            decimal expectedResult = premium + premium * 0.2m;
+            decimal actualResult = youngestDriverRule.ImplementRule(policy, premium);
 
             //Assert
             Assert.AreEqual(expectedResult, actualResult);
@@ -194,13 +194,13 @@ namespace VehicleInsuranceTests.BusinessRules.CalculationRules
             policy.PolicyStartDate = startDate;
             policy.DriversOnPolicy.Add(driver);
             driver.DateOfBirth = driverDateOfBirth;
-            double premium = 500;
+            decimal premium = 500;
             YoungestDriverRule youngestDriverRule = new YoungestDriverRule();
 
             //Act
 
-            double expectedResult = premium + premium * 0.1;
-            double actualResult = youngestDriverRule.ImplementRule(policy, premium);
+            decimal expectedResult = premium + premium * 0.1m;
+            decimal actualResult = youngestDriverRule.ImplementRule(policy, premium);
 
             //Assert
             Assert.AreEqual(expectedResult, actualResult);
@@ -217,13 +217,13 @@ namespace VehicleInsuranceTests.BusinessRules.CalculationRules
             policy.PolicyStartDate = startDate;
             policy.DriversOnPolicy.Add(driver);
             driver.DateOfBirth = driverDateOfBirth;
-            double premium = 500;
+            decimal premium = 500;
             YoungestDriverRule youngestDriverRule = new YoungestDriverRule();
 
             //Act
 
-            double expectedResult = premium + premium * 0.1;
-            double actualResult = youngestDriverRule.ImplementRule(policy, premium);
+            decimal expectedResult = premium + premium * 0.1m;
+            decimal actualResult = youngestDriverRule.ImplementRule(policy, premium);
 
             //Assert
             Assert.AreEqual(expectedResult, actualResult);
@@ -242,11 +242,11 @@ namespace VehicleInsuranceTests.BusinessRules.CalculationRules
             DriverClaimsRule driverClaimsRule = new DriverClaimsRule();
             driver.ClaimsAssociatedToDriver.Add(claim);
             policy.DriversOnPolicy.Add(driver);
-            double premium = 500;
+            decimal premium = 500;
 
             //Act
-            double expectedResult = premium + premium * 0.2;
-            double actualResult = driverClaimsRule.ImplementRule(policy, premium);
+            decimal expectedResult = premium + premium * 0.2m;
+            decimal actualResult = driverClaimsRule.ImplementRule(policy, premium);
 
             //Assert
             Assert.AreEqual(expectedResult, actualResult);
@@ -266,11 +266,11 @@ namespace VehicleInsuranceTests.BusinessRules.CalculationRules
             DriverClaimsRule driverClaimsRule = new DriverClaimsRule();
             driver.ClaimsAssociatedToDriver.Add(claim);
             policy.DriversOnPolicy.Add(driver);
-            double premium = 500;
+            decimal premium = 500;
 
             //Act
-            double expectedResult = premium + premium * 0.1;
-            double actualResult = driverClaimsRule.ImplementRule(policy, premium);
+            decimal expectedResult = premium + premium * 0.1m;
+            decimal actualResult = driverClaimsRule.ImplementRule(policy, premium);
 
             //Assert
             Assert.AreEqual(expectedResult, actualResult);
@@ -290,11 +290,11 @@ namespace VehicleInsuranceTests.BusinessRules.CalculationRules
             DriverClaimsRule driverClaimsRule = new DriverClaimsRule();
             driver.ClaimsAssociatedToDriver.Add(claim);
             policy.DriversOnPolicy.Add(driver);
-            double premium = 500;
+            decimal premium = 500;
 
             //Act
-            double expectedResult = premium + premium * 0.1;
-            double actualResult = driverClaimsRule.ImplementRule(policy, premium);
+            decimal expectedResult = premium + premium * 0.1m;
+            decimal actualResult = driverClaimsRule.ImplementRule(policy, premium);
 
             //Assert
             Assert.AreEqual(expectedResult, actualResult);

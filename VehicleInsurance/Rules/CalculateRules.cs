@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using VehicleInsurance.Interfaces;
 using VehicleInsurance.Model;
 
@@ -20,16 +21,16 @@ namespace VehicleInsurance.Rules
         /// </summary>
         /// <param name="policy"></param>
         /// <returns></returns>
-       public double ImplementRules(Policy policy)
+       public decimal ImplementRules(Policy policy)
        {
-           double premium = 0.0;
+           decimal premium = 0.0m;
 
            foreach (var rule in Rules)
            {
                premium = rule.ImplementRule(policy, premium);
            }
 
-           return premium;
+           return Math.Round(premium, 0);
        }
    }
 }

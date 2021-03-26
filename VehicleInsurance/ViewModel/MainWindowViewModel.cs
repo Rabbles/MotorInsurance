@@ -30,24 +30,14 @@ namespace VehicleInsurance.ViewModel
 
 
         /// <summary>
-        /// Binds to Occupation ComboBox.
+        /// List of available occupations.
         /// </summary>
         public List<string> OccupationList { get; set; }
 
-        private string _selectedOccupation;
-
-        public string SelectedOccupation
-        {
-            get { return _selectedOccupation; }
-            set
-            {
-                _selectedOccupation = value;
-                OnPropertyChanged();
-            }
-        }
+        public string SelectedOccupation { get; set; }
 
         /// <summary>
-        /// Binds to Policy Start Date.
+        /// Start date of Policy
         /// </summary>
         public DateTime PolicyStartDate
         {
@@ -55,12 +45,11 @@ namespace VehicleInsurance.ViewModel
             set
             {
                 _policy.PolicyStartDate = value;
-                OnPropertyChanged();
             }
         }
 
         /// <summary>
-        /// Binds to Driver details Listview.
+        /// Drivers on the Policy
         /// </summary>
         public ObservableCollection<Driver> Drivers
         {
@@ -68,39 +57,18 @@ namespace VehicleInsurance.ViewModel
             set
             {
                 _policy.DriversOnPolicy = value;
-                OnPropertyChanged();
             }
         }
-
-        private Driver _selectedDriver;
 
         /// <summary>
-        /// Binds to selected driver in Driver details Listview.
+        /// Selected Driver
         /// </summary>
-        public Driver SelectedDriver
-        {
-            get { return _selectedDriver; }
-            set
-            {
-                _selectedDriver = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private Claim _selectedClaim;
+        public Driver SelectedDriver { get; set; }
 
         /// <summary>
-        /// Binds to selected claim in Claim details Listview.
+        /// Selected Claim
         /// </summary>
-        public Claim SelectedClaim
-        {
-            get { return _selectedClaim; }
-            set
-            {
-                _selectedClaim = value;
-                OnPropertyChanged();
-            }
-        }
+        public Claim SelectedClaim { get; set; }
 
         /// <summary>
         /// Claims associated to driver.
@@ -111,41 +79,20 @@ namespace VehicleInsurance.ViewModel
             set
             {
                 SelectedDriver.ClaimsAssociatedToDriver = value;
-                OnPropertyChanged();
             }
         }
-
-        private string _status;
 
         /// <summary>
         /// Notification message for user.
         /// </summary>
-        public string Status
-        {
-            get { return _status; }
-            set
-            {
-                _status = value;
-                OnPropertyChanged();
-            }
-        }
+        public string Status { get; set; }
 
         /// <summary>
         /// Final calculated premium.
         /// </summary>
-        public double FinalPremium
-        {
-            get { return _policy.Premium; }
-            set
-            {
-                _policy.Premium = value;
-                OnPropertyChanged();
-            }
-        }
+        public decimal FinalPremium { get; set; }
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
+
         public MainWindowViewModel()
         {
             InitialiseDelegates();
@@ -163,14 +110,14 @@ namespace VehicleInsurance.ViewModel
         }
 
         /// <summary>
-        /// Helper method to initialise User Interace.
+        /// Helper method to initialise User Interface state.
         /// </summary>
         private void InitialiseUI()
         {
             _policy = new Policy()
             {
                 PolicyStartDate = DateTime.Today,
-                Premium = 0.0
+                Premium = 0.0m
             };
 
             OccupationList = new List<string>()
@@ -232,61 +179,50 @@ namespace VehicleInsurance.ViewModel
         /// </summary>
         private void AddDriver()
         {
-            try
+            if (string.IsNullOrWhiteSpace(DriverName))
             {
-                if (!string.IsNullOrWhiteSpace(DriverName))
-                {
-                    if (Drivers.Count < 5)
-                    {
-
-                        Driver driver = new Driver();
-                        driver.Name = DriverName;
-                        driver.DateOfBirth = DriverDateOfBirth;
-                        driver.ClaimsAssociatedToDriver = new ObservableCollection<Claim>();
-                        OccupationEnum jobEnum;
-
-                        if (SelectedOccupation == "Chauffeur")
-                        {
-                            jobEnum = OccupationEnum.Chauffeur;
-                        }
-                        else if (SelectedOccupation == "Accountant")
-                        {
-                            jobEnum = OccupationEnum.Accountant;
-                        }
-                        else
-                        {
-                            jobEnum = OccupationEnum.Other;
-                        }
-
-
-                        Occupation job = new Occupation()
-                        {
-                            JobTitle = jobEnum
-                        };
-
-                        driver.Occupation = job;
-
-                        Drivers.Add(driver);
-                        Status = DriverName + " added to policy";
-                    }
-                    else
-                    {
-                        Status = "Policy cannot contain more than five drivers";
-                        Logger.Info("Info: User attempted to have more than five drivers on policy.");
-                    }
-                }
-                else
-                {
-                    Status = "Please enter name and occupation of driver.";
-                }
-
+                Status = "Please check and ammend Driver Name";
+                Logger.Error("No Driver Name entered.");
+                return;
             }
-            catch (Exception e)
+
+            if (Drivers.Count > 5)
             {
-
-                Status = "Please check and ammend incorrect entries.";
-                Logger.Error("Error: " + e);
+                Status = "Policy cannot contain more than five drivers";
+                Logger.Info("Info: User attempted to have more than five drivers on policy.");
+                return;
             }
+
+            OccupationEnum jobEnum;
+
+            if (SelectedOccupation == "Chauffeur")
+            {
+                jobEnum = OccupationEnum.Chauffeur;
+            }
+            else if (SelectedOccupation == "Accountant")
+            {
+                jobEnum = OccupationEnum.Accountant;
+            }
+            else
+            {
+                jobEnum = OccupationEnum.Other;
+            }
+
+            Occupation job = new Occupation()
+            {
+                JobTitle = jobEnum
+            };
+
+            Driver driver = new Driver
+            {
+                Name = DriverName,
+                DateOfBirth = DriverDateOfBirth,
+                Occupation = job,
+                ClaimsAssociatedToDriver = new ObservableCollection<Claim>()
+            };
+
+            Drivers.Add(driver);
+            Status = DriverName + " added to policy";
         }
 
         /// <summary>
@@ -299,23 +235,23 @@ namespace VehicleInsurance.ViewModel
             {
                 //if (!string.IsNullOrWhiteSpace(DriverName))
                 //{
-                    IDeclineFactory declineFactory = new DeclineRulesFactory();
-                    DeclineRules declineRules = declineFactory.CreateDeclineRules();
-                    Result result = declineRules.ImplementRules(_policy);
+                IDeclineFactory declineFactory = new DeclineRulesFactory();
+                DeclineRules declineRules = declineFactory.CreateDeclineRules();
+                Result result = declineRules.ImplementRules(_policy);
 
-                    if (result.IsSuccessful)
-                    {
-                        ICalculateFactory calculateFactory = new CalculateRulesFactory();
-                        CalculateRules calculateRules = calculateFactory.CreateCalculationRules();
+                if (result.IsSuccessful)
+                {
+                    ICalculateFactory calculateFactory = new CalculateRulesFactory();
+                    CalculateRules calculateRules = calculateFactory.CreateCalculationRules();
 
 
-                        FinalPremium = calculateRules.ImplementRules(_policy);
-                        Status = "Premium updated successfully.";
-                    }
-                    else
-                    {
-                        Status = result.Message;
-                    }
+                    FinalPremium = calculateRules.ImplementRules(_policy);
+                    Status = "Premium updated successfully.";
+                }
+                else
+                {
+                    Status = result.Message;
+                }
                 //}
             }
             catch (Exception e)
@@ -324,6 +260,8 @@ namespace VehicleInsurance.ViewModel
                 Status = "Please ensure all fields are completed.";
                 Logger.Error("Error: " + e.Message);
             }
-         }
+        }
     }
 }
+
+     

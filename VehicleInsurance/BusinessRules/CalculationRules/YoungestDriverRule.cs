@@ -13,7 +13,7 @@ namespace VehicleInsurance.BusinessRules.CalculationRules
         /// <param name="policy"></param>
         /// <param name="premium"></param>
         /// <returns></returns>
-        public double ImplementRule(Policy policy, double premium)
+        public decimal ImplementRule(Policy policy, decimal premium)
         {
             var youngestDriver = AgeService.GetYoungestDriver(policy.DriversOnPolicy);
             var youngestDriverAge = AgeService.GetAge(youngestDriver.DateOfBirth, policy.PolicyStartDate);
@@ -21,11 +21,11 @@ namespace VehicleInsurance.BusinessRules.CalculationRules
 
             if (youngestDriverAge >= 21 && youngestDriverAge <= 25)
             {
-                premium = premium + premium * 0.2; 
+                premium += premium * 0.2m; 
             }
             else if (youngestDriverAge >= 26 && youngestDriverAge <= 75)
             {
-                premium = premium + premium * 0.1; 
+                premium += premium * 0.1m; 
             }
 
             return premium;

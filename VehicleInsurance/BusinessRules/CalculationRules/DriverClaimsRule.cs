@@ -14,7 +14,7 @@ namespace VehicleInsurance.BusinessRules.CalculationRules
         /// <param name="policy"></param>
         /// <param name="premium"></param>
         /// <returns></returns>
-        public double ImplementRule(Policy policy, double premium)
+        public decimal ImplementRule(Policy policy, decimal premium)
         {
             foreach (var driver in policy.DriversOnPolicy)
             {
@@ -24,11 +24,11 @@ namespace VehicleInsurance.BusinessRules.CalculationRules
 
                     if (age <= 1)
                     {
-                        premium = premium + premium * 0.2;
+                        premium = premium + premium * 0.2M;
                     }
                     else if (age >= 2 && age <= 5)
                     {
-                        premium = premium + premium * 0.1;
+                        premium += premium * 0.1M;
                     }
                 }
             }
