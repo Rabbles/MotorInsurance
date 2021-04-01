@@ -59,5 +59,41 @@ namespace VehicleInsurance.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Driver cannot exceed five claims..
+        /// </summary>
+        internal static string DriverCannotExceedFiveClaims {
+            get {
+                return ResourceManager.GetString("DriverCannotExceedFiveClaims", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please ensure all fields are completed..
+        /// </summary>
+        internal static string EnsureAllFieldsAreCompleted {
+            get {
+                return ResourceManager.GetString("EnsureAllFieldsAreCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Premium updated successfully..
+        /// </summary>
+        internal static string PremiumUpdatedSuccessfully {
+            get {
+                return ResourceManager.GetString("PremiumUpdatedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select a driver to associate claim..
+        /// </summary>
+        internal static string SelectADriverToAssociateToClaim {
+            get {
+                return ResourceManager.GetString("SelectADriverToAssociateToClaim", resourceCulture);
+            }
+        }
     }
 }
