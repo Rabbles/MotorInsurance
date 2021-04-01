@@ -7,20 +7,18 @@ namespace VehicleInsurance.Rules
 {
     public class CalculateRules
    {
-       private List<ICalculate> Rules;
+       private readonly List<ICalculate> Rules;
 
-        //constructor
        public CalculateRules(List<ICalculate> rules)
        {
-           this.Rules = rules;
+            Rules = rules;
        }
 
         /// <summary>
-        /// Implements each rule and calculates in order.
-        /// Returns the final premium.
+        /// Implements each rule and calculates the premium.
         /// </summary>
         /// <param name="policy"></param>
-        /// <returns></returns>
+        /// <returns>premium</returns>
        public decimal ImplementRules(Policy policy)
        {
            decimal premium = 0.0m;

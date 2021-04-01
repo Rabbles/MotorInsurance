@@ -18,7 +18,7 @@ namespace VehicleInsurance.Factories
             {
                 new BadStartDateRule(),
                 new YoungestDriverUnder21Rule(),
-                new OldestDriverOver75Rule(),
+                new OldestDriverOverSeventyFiveRule(),
                 new DriverHasMoreThanTwoClaimsRule(),
                 new TotalClaimsExceedsThreeRule()
             };

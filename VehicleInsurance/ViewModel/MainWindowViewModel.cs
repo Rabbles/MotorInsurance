@@ -225,7 +225,7 @@ namespace VehicleInsurance.ViewModel
                 "Accountant",
                 "Chauffeur"
             };
-            SelectedDriver = new Driver();
+            //SelectedDriver = new Driver();
             Drivers = new ObservableCollection<Driver>();
             DriverClaims = new ObservableCollection<Claim>();
             DriverDateOfBirth = DateTime.Now;

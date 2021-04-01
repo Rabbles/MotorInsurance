@@ -8,11 +8,10 @@ namespace VehicleInsurance.Service
     public static class AgeService
     {
         /// <summary>
-        /// Calculate the age of x.
+        /// Calculate the age of a driver.
         /// </summary>
         /// <param name="date"></param>
         /// <param name="policyDate"></param>
-        /// <returns></returns>
         public static int GetAge(DateTime date, DateTime policyDate)
         {
             int driverAge = policyDate.Year - date.Year;
@@ -26,32 +25,21 @@ namespace VehicleInsurance.Service
         }
 
         /// <summary>
-        /// Iterate through collection of drivers on policy,
-        /// Order by age in descending order,
-        /// Return youngest driver.
+        /// Get the youngest driver from available drivers.
         /// </summary>
         /// <param name="drivers"></param>
-        /// <returns></returns>
         public static Driver GetYoungestDriver(ObservableCollection<Driver> drivers)
         {
-            Driver youngestDriver = drivers.OrderBy(d => d.DateOfBirth).ToList().Last();
-
-            return youngestDriver;
+            return drivers.OrderBy(d => d.DateOfBirth).ToList().Last();
         }
 
-
         /// <summary>
-        /// Iterate through collection of drivers on policy,
-        /// Order by age in descending order,
-        /// Return oldest driver.
+        /// Get the eldest driver from available drivers.
         /// </summary>
         /// <param name="drivers"></param>
-        /// <returns></returns>
         public static Driver GetOldestDriver(ObservableCollection<Driver> drivers)
         {
-            Driver oldestDriver = drivers.OrderBy(d => d.DateOfBirth).ToList().First();
-
-            return oldestDriver;
+            return drivers.OrderBy(d => d.DateOfBirth).ToList().First();
         }
     }
 }

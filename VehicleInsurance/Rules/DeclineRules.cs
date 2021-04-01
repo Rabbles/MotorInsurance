@@ -6,11 +6,11 @@ namespace VehicleInsurance.Rules
 {
     public class DeclineRules
    {
-       private List<IDecline> Rules;
+       private readonly List<IDecline> rules;
 
        public DeclineRules(List<IDecline> rules)
        {
-           this.Rules = rules;
+           this.rules = rules;
        }
 
         /// <summary>
@@ -23,7 +23,7 @@ namespace VehicleInsurance.Rules
        {
            Result result = new Result(string.Empty, true);
 
-           foreach (var rule in Rules)
+           foreach (var rule in rules)
            {
                result = rule.ImplementRule(policy);
 

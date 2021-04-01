@@ -111,7 +111,7 @@
     <Compile Include="BusinessRules\CalculationRules\YoungestDriverRule.cs" />
     <Compile Include="BusinessRules\DeclinedRules\BadStartDateRule.cs" />
     <Compile Include="BusinessRules\DeclinedRules\DriverHasMoreThanTwoClaimsRule.cs" />
-    <Compile Include="BusinessRules\DeclinedRules\OldestDriverOver75Rule.cs" />
+    <Compile Include="BusinessRules\DeclinedRules\OldestDriverOverSeventyFiveRule.cs" />
     <Compile Include="BusinessRules\DeclinedRules\TotalClaimsExceedsThreeRule.cs" />
     <Compile Include="BusinessRules\DeclinedRules\YoungestDriverUnder21Rule.cs" />
     <Compile Include="Factories\CalculateRulesFactory.cs" />

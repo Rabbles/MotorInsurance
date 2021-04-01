@@ -124,7 +124,7 @@ namespace VehicleInsuranceTests.BusinessRules.DeclineRules
             policy.PolicyStartDate = startDate;
             policy.DriversOnPolicy.Add(driver);
             driver.DateOfBirth = driverDateOfBirth;
-            OldestDriverOver75Rule over75Rule = new OldestDriverOver75Rule();
+            OldestDriverOverSeventyFiveRule over75Rule = new OldestDriverOverSeventyFiveRule();
 
             //Act
             bool expectedResult = true;
@@ -146,7 +146,7 @@ namespace VehicleInsuranceTests.BusinessRules.DeclineRules
             policy.PolicyStartDate = startDate;
             policy.DriversOnPolicy.Add(driver);
             driver.DateOfBirth = driverDateOfBirth;
-            OldestDriverOver75Rule over75Rule = new OldestDriverOver75Rule();
+            OldestDriverOverSeventyFiveRule over75Rule = new OldestDriverOverSeventyFiveRule();
 
             //Act
             bool expectedResult = false;

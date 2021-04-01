@@ -4,22 +4,22 @@ using VehicleInsurance.Service;
 
 namespace VehicleInsurance.BusinessRules.DeclinedRules
 {
-    public class OldestDriverOver75Rule : IDecline
+    public class OldestDriverOverSeventyFiveRule : IDecline
     {
+        private const int MaxAge = 75;
+
         /// <summary>
-        /// If the oldest driver is over the age of 75 at the start date of the policy decline with a message 
-        /// "Age of Oldest Driver" and append the name of the driver.
+        /// Implements the oldest driver over 75 rule.
         /// </summary>
         /// <param name="policy"></param>
-        /// <returns></returns>
         public Result ImplementRule(Policy policy)
         {
             var oldestDriverOnPolicy = AgeService.GetOldestDriver(policy.DriversOnPolicy);
             var age = AgeService.GetAge(oldestDriverOnPolicy.DateOfBirth, policy.PolicyStartDate);
 
-            if (age > 75)
+            if (age > MaxAge)
             {
-                return new Result("Age of Oldest Driver " + oldestDriverOnPolicy.Name, false);
+                return new Result($"Age of Oldest Driver {oldestDriverOnPolicy.Name}", false);
             }
             else
             {

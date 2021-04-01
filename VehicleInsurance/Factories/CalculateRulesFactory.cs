@@ -8,8 +8,7 @@ namespace VehicleInsurance.Factories
     public class CalculateRulesFactory : ICalculateFactory
     {
         /// <summary>
-        /// Factory method which returns a list of 
-        /// calculation rules.
+        /// Factory method which returns a list of calculation rules.
         /// </summary>
         /// <returns></returns>
         public CalculateRules CreateCalculationRules()
@@ -24,7 +23,5 @@ namespace VehicleInsurance.Factories
 
             return new CalculateRules(rules);
         }
-
-        
     }
 }
