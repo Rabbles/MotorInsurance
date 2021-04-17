@@ -89,8 +89,18 @@ namespace VehicleInsurance.ViewModel
         /// </summary>
         public decimal FinalPremium { get; set; }
 
+        private ICalculateFactory _calculateFactory;
+
+        //public MainWindowViewModel(ICalculateFactory calculateFactory)
+        //{
+        //    _calculateFactory = calculateFactory;
+        //    InitialiseDelegates();
+        //    InitialiseUI();
+        //}
+
         public MainWindowViewModel()
         {
+            //_calculateFactory = calculateFactory;
             InitialiseDelegates();
             InitialiseUI();
         }
@@ -194,7 +204,7 @@ namespace VehicleInsurance.ViewModel
             if (result.IsSuccessful)
             {
                 ICalculateFactory calculateFactory = new CalculateRulesFactory();
-                var calculateRules = calculateFactory.CreateCalculationRules();
+                var calculateRules = _calculateFactory.CreateCalculationRules();
 
                 FinalPremium = calculateRules.ImplementRules(_policy);
                 Status = Resources.PremiumUpdatedSuccessfully;
@@ -225,7 +235,8 @@ namespace VehicleInsurance.ViewModel
                 "Accountant",
                 "Chauffeur"
             };
-            //SelectedDriver = new Driver();
+
+            SelectedDriver = new Driver();
             Drivers = new ObservableCollection<Driver>();
             DriverClaims = new ObservableCollection<Claim>();
             DriverDateOfBirth = DateTime.Now;

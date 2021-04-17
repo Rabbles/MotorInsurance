@@ -2,7 +2,7 @@
 
 namespace VehicleInsurance.Interfaces
 {
-    interface ICalculateFactory
+    public interface ICalculateFactory
     {
         CalculateRules CreateCalculationRules();
     }
