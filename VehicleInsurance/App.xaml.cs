@@ -15,16 +15,18 @@ namespace VehicleInsurance
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            var vm = new MainWindowViewModel();
+            var calculateFactory = new CalculateRulesFactory();
+            var declineFactory = new DeclineRulesFactory();
+            var vm = new MainWindowViewModel(calculateFactory, declineFactory);
             Application.Current.MainWindow = new MainWindow(vm);
             Application.Current.MainWindow.Show();
 
-            var builder = new ContainerBuilder();
+            //var builder = new ContainerBuilder();
 
-            builder.RegisterType<Driver>().As<IDriver>();
-            builder.RegisterType<CalculateRulesFactory>().As<ICalculateFactory>();
+            //builder.RegisterType<Driver>().As<IDriver>();
+            //builder.RegisterType<CalculateRulesFactory>().As<ICalculateFactory>();
 
-            builder.Build();
+            //builder.Build();
         }
     }
 }

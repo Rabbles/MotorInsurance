@@ -8,7 +8,6 @@ using VehicleInsurance.Factories;
 using VehicleInsurance.Interfaces;
 using VehicleInsurance.Model;
 using VehicleInsurance.Properties;
-using Claim = VehicleInsurance.Model.Claim;
 
 namespace VehicleInsurance.ViewModel
 {
@@ -91,16 +90,12 @@ namespace VehicleInsurance.ViewModel
 
         private ICalculateFactory _calculateFactory;
 
-        //public MainWindowViewModel(ICalculateFactory calculateFactory)
-        //{
-        //    _calculateFactory = calculateFactory;
-        //    InitialiseDelegates();
-        //    InitialiseUI();
-        //}
+        private IDeclineFactory _declineFactory;
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(ICalculateFactory calculateFactory, IDeclineFactory declineFactory)
         {
-            //_calculateFactory = calculateFactory;
+            _calculateFactory = calculateFactory;
+            _declineFactory = declineFactory;
             InitialiseDelegates();
             InitialiseUI();
         }
@@ -197,13 +192,11 @@ namespace VehicleInsurance.ViewModel
         /// </summary>
         public void CalculatePremium()
         {
-            IDeclineFactory declineFactory = new DeclineRulesFactory();
-            var declineRules = declineFactory.CreateDeclineRules();
+            var declineRules = _declineFactory.CreateDeclineRules();
             var result = declineRules.ImplementRules(_policy);
 
             if (result.IsSuccessful)
             {
-                ICalculateFactory calculateFactory = new CalculateRulesFactory();
                 var calculateRules = _calculateFactory.CreateCalculationRules();
 
                 FinalPremium = calculateRules.ImplementRules(_policy);
